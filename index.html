@@ -1,0 +1,191 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>밴실합주는언제할건데</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 2em;
+        }
+        h3 {
+            text-align: center;
+            margin-top: 30px;
+            font-size: 1.5em;
+        }
+        #instructionBtn {
+            text-align: center;
+            margin: 10px;
+            padding: 5px;
+            background-color: #8fbc91;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+            width: 50%;
+            max-width: 220px;
+            font-weight: bold;
+        }
+        #vanish {
+            text-align: center;
+            margin: 10px;
+            padding: 5px;
+            background-color: #8fbc91;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            max-width: 250px;
+            font-weight: bold;
+        }
+        .instructions {
+            max-height: 0; /* 기본적으로 텍스트 높이를 0으로 설정하여 숨김 */
+            opacity: 0; /* 텍스트 투명도 0 */
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.5s ease; /* 애니메이션 추가 */
+            text-align: left;
+            margin: 5px;
+            font-size: 1.2em;
+            background-color: #f0f0f0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .instructions.show {
+            max-height: 400px; /* 보일 때의 최대 높이 조정 */
+            opacity: 1; /* 투명도 복원 */
+        }
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 0;
+        }
+        .instruction-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 0;
+        }
+        button {
+            margin: 10px;
+            padding: 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1.2em;
+            width: 80%;
+            max-width: 300px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        h5:hover {
+            background-color: #6d966f;
+        }
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            font-size: 14px;
+            color: gray;
+        }
+
+        @media (min-width: 600px) {
+            button {
+                width: 60%;
+            }
+            h1 {
+                font-size: 2.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>밴실합주는언제할건데</h1>
+
+    <div class="instruction-container">
+        <h5 id="instructionBtn">어떻게 쓰는건지 알려주는 버튼</h5>
+
+        <div class="instructions" id="instructions">
+            <b>Q. 뭘 하고싶은건지?</b> <br>
+            : when2meet 이라는 서비스를 이용해서 각자 언제 몇시에 한가한지 조사할거임. <br><br>
+            <b>Q. 이 사이트는 뭐냐?</b> <br>
+            : 링크를 쉽게 관리하고 한눈에 보려고 간단히 만들어보았답니다 <br><br>
+            <b>Q. 그래서 어떻게 사용하는건지?</b> <br>
+             <ol>
+                <li>원하는 주차의 버튼을 클릭한다</li>
+                <li>입력칸 두개가 보인다. (왼쪽쯤에)</li>
+                <li>이름을 쓴다 (필수). 비번을 정한다(선택)</li>
+                <li>"가능한"날짜의 시간대를 클릭하면 초록색으로 바뀐다! (드래그 해서 한번에 선택도 가능하다)</li>
+                <li>따로 저장같은건 할 필요 없다. 모든게 자동이다@  </li>
+             </ol>
+             <h5 id="vanish">눌러서 설명을 닫을수 있는 버튼</h5>
+
+        </div>
+    </div>
+
+    <h3>언제 가능한지 등록하는 곳</h3>
+    <div class="button-container" id="button-container">
+        <!-- Buttons will be added here -->
+    </div>
+
+    <footer>
+        만든사람 : 김보찬
+    </footer>
+
+    <!-- PapaParse library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.3.0/papaparse.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const instructionBtn = document.getElementById("instructionBtn");
+            const instructions = document.getElementById("instructions");
+            const vanish = document.getElementById("vanish");
+
+            // 제목 클릭 시 안내문 보이기/숨기기 토글 기능
+            instructionBtn.addEventListener("click", function() {
+                instructions.classList.toggle("show"); // 'show' 클래스를 토글
+                instructionBtn.innerText = (instructionBtn.innerText === '어떻게 쓰는건지 알려주는 버튼') 
+                    ?  '다시 누르면 사라지는 버튼' : '어떻게 쓰는건지 알려주는 버튼';
+            });
+
+            vanish.addEventListener("click", function() {
+                instructions.classList.toggle("show"); // 'show' 클래스를 토글
+                instructionBtn.innerText = (instructionBtn.innerText === '어떻게 쓰는건지 알려주는 버튼') 
+                    ?  '다시 누르면 사라지는 버튼' : '어떻게 쓰는건지 알려주는 버튼';
+            });
+
+            // CSV 파일 파싱 및 버튼 생성
+            Papa.parse("data.csv", {
+                download: true,
+                header: true,
+                complete: function(results) {
+                    const data = results.data;
+                    const buttonContainer = document.getElementById("button-container");
+
+                    data.forEach(row => {
+                        const button = document.createElement("button");
+                        button.textContent = `${row.start_date} ~ ${row.end_date}`;
+                        
+                        // 버튼 클릭 시 해당 링크로 이동
+                        button.addEventListener("click", function() {
+                            window.location.href = row.link;
+                        });
+
+                        buttonContainer.appendChild(button);
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
