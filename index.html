@@ -127,8 +127,10 @@
                 <li>입력칸 두개가 보인다. (왼쪽쯤에)</li>
                 <li>이름을 쓴다 (필수). 비번을 정한다(선택)</li>
                 <li>"가능한"날짜의 시간대를 클릭하면 초록색으로 바뀐다! (드래그 해서 한번에 선택도 가능하다)</li>
-                <li>따로 저장같은건 할 필요 없다. 모든게 자동이다@  </li>
+                <li>따로 저장같은건 할 필요 없다. 모든게 자동이다.  </li>
              </ol>
+             <b>Q. 응답을 바꾸고 싶어요</b> <br>
+            : 처음에 작성했던 이름과 비번(선택)을 입력하면 수정할수있다. <br><br>
              <h5 id="vanish">눌러서 설명을 닫을수 있는 버튼</h5>
 
         </div>
@@ -178,7 +180,10 @@
                         
                         // 버튼 클릭 시 해당 링크로 이동
                         button.addEventListener("click", function() {
-                            window.location.href = row.link;
+                            const userConfirmed = confirm("이 링크로 이동하시겠습니까?");
+                            if (userConfirmed) {
+                                window.location.href = row.link; // 링크로 이동
+                            }
                         });
 
                         buttonContainer.appendChild(button);
