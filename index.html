@@ -180,7 +180,7 @@
                         
                         // 버튼 클릭 시 해당 링크로 이동
                         button.addEventListener("click", function() {
-                            const userConfirmed = confirm("이 링크로 이동하시겠습니까?");
+                            const userConfirmed = confirm( `[${row.start_date} ~ ${row.end_date}]로 이동?`);
                             if (userConfirmed) {
                                 window.location.href = row.link; // 링크로 이동
                             }
